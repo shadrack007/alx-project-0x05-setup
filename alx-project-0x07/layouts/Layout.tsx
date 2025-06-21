@@ -1,8 +1,14 @@
-const Layout: React.FC = () => {
+import { ReactComponentProps } from "@/interfaces";
+import Header from "./Header";
+import Footer from "./Footer";
+
+const Layout: React.FC<ReactComponentProps> = ({ children }) => {
   return (
-    <div>
-      <p>layout</p>
-    </div>
+    <>
+      <Header />
+      <main className="min-h-screen">{children}</main>
+      <Footer />
+    </>
   );
 };
 
