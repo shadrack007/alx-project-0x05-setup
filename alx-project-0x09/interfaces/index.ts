@@ -10,4 +10,8 @@ export interface GeneratedImageProps {
   action: (imagePath: string) => void;
 }
 
-export type ImageProps = Pick<GeneratedImageProps, "imageUrl">;
+export type RequestProps = {
+  prompt: string;
+};
+
+export type ImageProps = Pick<GeneratedImageProps, "imageUrl" | "prompt">;
