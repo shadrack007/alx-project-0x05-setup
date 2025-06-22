@@ -1,4 +1,13 @@
+import ImageCard from "@/components/common/IMageCard";
+import { ImageProps } from "@/interfaces";
+import { useState } from "react";
+
 export default function Home() {
+  const [prompt, setPrompt] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [generatedImages, setGeneratedImages] = useState<ImageProps[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const handleGenerateImage = () => {
     console.log("Generating images");
   };
@@ -15,6 +24,8 @@ export default function Home() {
         <div className="w-full max-w-md">
           <input
             type="text"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
             placeholder="Enter your prompt here..."
             className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           />
@@ -22,9 +33,16 @@ export default function Home() {
             onClick={handleGenerateImage}
             className="w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
           >
-            Generate Image
+            {isLoading ? "Loading..." : "Generate Image"}
           </button>
         </div>
+        {imageUrl && (
+          <ImageCard
+            action={() => setImageUrl(imageUrl)}
+            imageUrl={imageUrl}
+            prompt={prompt}
+          />
+        )}
       </div>
     </div>
   );
