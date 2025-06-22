@@ -28,6 +28,11 @@ export default function Home() {
 
     console.log("date", data);
     setIsLoading(false);
+    setImageUrl(data?.message);
+    setGeneratedImages((prev) => [
+      ...prev,
+      { imageUrl: data?.message, prompt },
+    ]);
   };
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
@@ -60,6 +65,28 @@ export default function Home() {
             imageUrl={imageUrl}
             prompt={prompt}
           />
+        )}
+        {generatedImages.length ? (
+          <div>
+            <h3>Generated Images</h3>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 border max-w-full md:max-w-[1100px] p-2 overflow-y-scroll h-96">
+              {generatedImages?.map(
+                ({ imageUrl, prompt }: ImageProps, index: number) => (
+                  <ImageCard
+                    action={() => setImageUrl(imageUrl)}
+                    imageUrl={imageUrl}
+                    prompt={prompt}
+                    key={index}
+                    width="w-full"
+                    height="h-40"
+                  />
+                )
+              )}
+            </div>
+          </div>
+        ) : (
+          ""
         )}
       </div>
     </div>
